@@ -7,8 +7,18 @@ public class Bank {
 
 	ReadProperty readObject = new ReadProperty();
 	
-	public void debitAmount() {
-		
+	public void debitAmount(Scanner scanner) {
+		System.out.println("Enter the amount to Debit...");
+		int debitAmount = scanner.nextInt();
+		int currentBalance = readObject.getValue("balance");
+		if (debitAmount <= currentBalance) {
+            int updatedBalance = currentBalance - debitAmount;
+            readObject.setValue("balance", Integer.toString(updatedBalance));
+            System.out.println("Amount debited successfully. New Balance: " + updatedBalance);
+        } else {
+            System.out.println("Insufficient balance. Transaction declined.");
+        }
+		 
 	}
 
 	public void checkBalance() throws IOException { // to check the balance in you account
@@ -48,7 +58,7 @@ public class Bank {
 			System.out.println("* 3. Debit Balance                          *");
 			System.out.println("* 4. Exit                                 *");
 			System.out.println("*******************************************");
-			System.out.print("\nPlease enter your choice (1-3): ");
+			System.out.print("\nPlease enter your choice (1-4): ");
 
 			// Read user choice
 			while (!scanner.hasNextInt()) {
@@ -64,6 +74,9 @@ public class Bank {
 				break;
 			case 2:
 				obj.addBalance(scanner);
+				break;
+			case 3:
+				obj.debitAmount(scanner);
 				break;
 			case 4:
 				System.out.println("Thank you for using YAM Bank. Goodbye!");
