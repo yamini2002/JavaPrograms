@@ -6,19 +6,19 @@ import java.util.Scanner;
 public class Bank {
 
 	ReadProperty readObject = new ReadProperty();
-	
+
 	public void debitAmount(Scanner scanner) {
 		System.out.println("Enter the amount to Debit...");
 		int debitAmount = scanner.nextInt();
 		int currentBalance = readObject.getValue("balance");
 		if (debitAmount <= currentBalance) {
-            int updatedBalance = currentBalance - debitAmount;
-            readObject.setValue("balance", Integer.toString(updatedBalance));
-            System.out.println("Amount debited successfully. New Balance: " + updatedBalance);
-        } else {
-            System.out.println("Insufficient balance. Transaction declined.");
-        }
-		 
+			int updatedBalance = currentBalance - debitAmount;
+			readObject.setValue("balance", Integer.toString(updatedBalance));
+			System.out.println("Amount debited successfully. New Balance: " + updatedBalance);
+		} else {
+			System.out.println("Insufficient balance. Transaction declined.");
+		}
+
 	}
 
 	public void checkBalance() throws IOException { // to check the balance in you account
@@ -41,6 +41,28 @@ public class Bank {
 			System.out.println("Entered wrong amount...Please try again...");
 			return;
 		}
+	}
+
+	public void verifyThePin(Scanner scanner) {
+		System.out.println("Entered the pin number here...");
+		int pinCode = 1234;
+		int attempts =3;
+		while (attempts > 0) {
+			int pinNumber = scanner.nextInt();
+
+			if (pinCode == pinNumber) {
+				System.out.println("The Entered PIN is valid...");
+			} else {
+				System.out.println("You have entered invaild");
+				attempts--;
+				if (attempts > 0) {
+	                System.out.println("Incorrect PIN. Attempts remaining: " + attempts);
+	            } else {
+	                System.out.println("Too many incorrect attempts. Access denied.");
+	            }
+			}
+		}
+
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -70,12 +92,15 @@ public class Bank {
 			// Process the user's choice
 			switch (choice) {
 			case 1:
+				obj.verifyThePin(scanner);
 				obj.checkBalance();
 				break;
 			case 2:
+				obj.verifyThePin(scanner);
 				obj.addBalance(scanner);
 				break;
 			case 3:
+				obj.verifyThePin(scanner);
 				obj.debitAmount(scanner);
 				break;
 			case 4:
