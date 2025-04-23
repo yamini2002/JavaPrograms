@@ -4,7 +4,9 @@ public class DuplicateNumber {
 
 	public void DuplicateNum(int len, int[] a) {
 		int count = 1;
-		System.out.println("The Duplicate numbers present in the array are");
+
+		System.out.println("The Duplicate numbers present in the array are :");
+
 		for (int i = 0; i < len; i++) {
 			for (int j = i + 1; j < len; j++) {
 				if (a[i] == a[j]) {
